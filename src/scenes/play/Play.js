@@ -11,7 +11,7 @@ export default function Play() {
   }
 
   return (
-    <View styles={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.title}>これはPlay画面です</Text>
       <TouchableOpacity
         onPress={onButtonPress}

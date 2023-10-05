@@ -14,7 +14,7 @@ export default function Lyrics() {
   }
 
   return (
-    <View styles={styles.container}>
+    <View style={styles.container}>
       <Text>これはLyrics画面です</Text>
       <Text style={styles.title}>前の画面では{pressedNum}を押しました</Text>
       <TouchableOpacity

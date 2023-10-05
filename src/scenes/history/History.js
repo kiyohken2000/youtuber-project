@@ -11,7 +11,7 @@ export default function History() {
   }
 
   return (
-    <View styles={styles.container}>
+    <View style={styles.container}>
       <Text>これはHistory画面です</Text>
       <TouchableOpacity
         onPress={() => onButtonPress({num: 1})}
