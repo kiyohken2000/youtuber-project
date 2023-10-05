@@ -7,6 +7,7 @@ import { colors } from 'theme'
 import { HomeStacks } from '../stacks/HomeStacks'
 import { ProfileStacks } from '../stacks/ProfileStacks'
 import { ReadWriteStacks } from '../stacks/ReadWriteStacks'
+import { PlayStacks } from '../stacks/PlayStacks'
 
 const Tab = createBottomTabNavigator()
 
@@ -70,6 +71,20 @@ export default function TabNavigator() {
           tabBarIcon: ({ color, size }) => (
             <FontIcon
               name="address-card"
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="PlayTab"
+        component={PlayStacks}
+        options={{
+          tabBarLabel: 'Play',
+          tabBarIcon: ({ color, size }) => (
+            <FontIcon
+              name="play-circle"
               color={color}
               size={size}
             />
