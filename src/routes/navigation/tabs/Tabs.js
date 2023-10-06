@@ -8,6 +8,7 @@ import { HomeStacks } from '../stacks/HomeStacks'
 import { ProfileStacks } from '../stacks/ProfileStacks'
 import { ReadWriteStacks } from '../stacks/ReadWriteStacks'
 import { PlayStacks } from '../stacks/PlayStacks'
+import { SearchStacks } from '../stacks/SearchStacks'
 
 const Tab = createBottomTabNavigator()
 
@@ -85,6 +86,20 @@ export default function TabNavigator() {
           tabBarIcon: ({ color, size }) => (
             <FontIcon
               name="play-circle"
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="SearchTab"
+        component={SearchStacks}
+        options={{
+          tabBarLabel: 'Search',
+          tabBarIcon: ({ color, size }) => (
+            <FontIcon
+              name="search"
               color={color}
               size={size}
             />
