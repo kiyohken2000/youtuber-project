@@ -5,6 +5,7 @@ import { navigationProps } from './navigationProps/navigationProps'
 import Search from '../../../scenes/search/Search'
 import Sneakers from '../../../scenes/sneakers/Sneakers'
 import Information from '../../../scenes/information/Information'
+import Map from '../../../scenes/map/Map'
 
 const Stack = createStackNavigator()
 
@@ -37,6 +38,15 @@ export const SearchStacks = () => {
         component={Information}
         options={({ navigation }) => ({
           title: 'Information',
+          headerShown: true,
+          headerBackTitleVisible: false,
+        })}
+      />
+      <Stack.Screen
+        name="Map"
+        component={Map}
+        options={({ navigation }) => ({
+          title: 'Map',
           headerShown: true,
           headerBackTitleVisible: false,
         })}

@@ -12,6 +12,10 @@ export default function Search() {
     navigation.navigate('Sneakers')
   }
 
+  const onGoMapPress = () => {
+    navigation.navigate('Map')
+  }
+
   return (
     <ScreenTemplate>
       <View style={styles.container}>
@@ -21,6 +25,15 @@ export default function Search() {
             label='スニーカー一覧へ'
             onPress={onButtonPress}
             color={colors.purple}
+            disable={false}
+            labelColor={colors.white}
+            labelBold={false}
+          />
+          <View style={{paddingVertical: 20}} />
+          <Button
+            label='マップ画面へ'
+            onPress={onGoMapPress}
+            color={colors.bluePrimary}
             disable={false}
             labelColor={colors.white}
             labelBold={false}
