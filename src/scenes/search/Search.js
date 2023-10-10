@@ -16,6 +16,10 @@ export default function Search() {
     navigation.navigate('Map')
   }
 
+  const onUsersPress = () => {
+    navigation.navigate('Users')
+  }
+
   return (
     <ScreenTemplate>
       <View style={styles.container}>
@@ -29,11 +33,20 @@ export default function Search() {
             labelColor={colors.white}
             labelBold={false}
           />
-          <View style={{paddingVertical: 20}} />
+          <View style={{paddingVertical: 10}} />
           <Button
             label='マップ画面へ'
             onPress={onGoMapPress}
             color={colors.bluePrimary}
+            disable={false}
+            labelColor={colors.white}
+            labelBold={false}
+          />
+          <View style={{paddingVertical: 10}} />
+          <Button
+            label='ユーザー一覧へ'
+            onPress={onUsersPress}
+            color={colors.pink}
             disable={false}
             labelColor={colors.white}
             labelBold={false}
