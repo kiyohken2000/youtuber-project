@@ -1,27 +1,49 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from "react-native";
 import { fontSize, colors } from "../../theme";
 import ReadMore from '@fawazahmed/react-native-read-more';
 
+const { width, height } = Dimensions.get('window')
+
 export default function RenderUser(props) {
-  const { id, name, age, city, comment } = props.item
+  const { id, name, age, city, comment, avatar } = props.item
+  const [visible, setVisible] = useState(false)
+
+  const onImagePress = () => {
+    setVisible(!visible)
+  }
 
   return (
     <View>
-      <Text style={styles.title}>id: {id}</Text>
-      <Text style={styles.title}>name: {name}</Text>
-      <Text style={styles.title}>age: {age}</Text>
-      <Text style={styles.title}>city: {city}</Text>
-      <ReadMore
-        numberOfLines={3}
-        style={styles.comment}
-        seeMoreText="もっと読む"
-        seeLessText="閉じる"
-        seeMoreStyle={{color: colors.bluePrimary}}
-        seeLessStyle={{color: colors.purple}}
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={onImagePress}
       >
-        {comment}
-      </ReadMore>
+        <Image
+          source={{uri: avatar}}
+          resizeMode='cover'
+          style={styles.image}
+        />
+      </TouchableOpacity>
+      {visible?
+        <View>
+          <Text style={styles.title}>id: {id}</Text>
+          <Text style={styles.title}>name: {name}</Text>
+          <Text style={styles.title}>age: {age}</Text>
+          <Text style={styles.title}>city: {city}</Text>
+          <ReadMore
+            numberOfLines={3}
+            style={styles.comment}
+            seeMoreText="もっと読む"
+            seeLessText="閉じる"
+            seeMoreStyle={{color: colors.bluePrimary}}
+            seeLessStyle={{color: colors.purple}}
+          >
+            {comment}
+          </ReadMore>
+        </View>
+        :null
+      }
       <View style={{width: '100%', backgroundColor: colors.gray, paddingVertical: 1}} />
     </View>
   )
@@ -36,5 +58,14 @@ const styles = StyleSheet.create({
   },
   comment: {
     fontSize: fontSize.xLarge
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    paddingVertical: 20
+  },
+  image: {
+    width: width * 0.8,
+    height: width * 0.8,
+    borderRadius: 20
   }
 })
