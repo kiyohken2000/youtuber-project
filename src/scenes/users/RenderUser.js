@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Alert } from "react-native";
 import { fontSize, colors } from "../../theme";
 import ReadMore from '@fawazahmed/react-native-read-more';
+import IconButtons from "./IconButtons";
 
 const { width, height } = Dimensions.get('window')
 
@@ -11,6 +12,17 @@ export default function RenderUser(props) {
 
   const onImagePress = () => {
     setVisible(!visible)
+  }
+
+  const onIconPress = ({iconName}) => {
+    Alert.alert(
+      `${iconName}が押されました`,
+      '',
+      [
+        {text: '閉じる', onPress: () => console.log('on close')}
+      ],
+      { cancelable: false }
+    )
   }
 
   return (
@@ -25,6 +37,9 @@ export default function RenderUser(props) {
           style={styles.image}
         />
       </TouchableOpacity>
+      <IconButtons
+        onPress={onIconPress}
+      />
       {visible?
         <View>
           <Text style={styles.title}>id: {id}</Text>
