@@ -11,4 +11,15 @@ const formatData = ({data}) => {
   return obj
 }
 
-export { dataUrl, formatData }
+const generateData = () => {
+  const result = [...Array(5)].map((_, i) => {
+    const data = i + 1
+    return {
+      value: data,
+      label: `${data}`
+    }
+  })
+  return result
+}
+
+export { dataUrl, formatData, generateData }

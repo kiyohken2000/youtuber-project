@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Alert } from "react-native";
 import { fontSize, colors } from "../../theme";
 import ReadMore from '@fawazahmed/react-native-read-more';
 import IconButtons from "./IconButtons";
+import { generateData } from "./functions";
+import Selector from "../../components/Selector";
 
 const { width, height } = Dimensions.get('window')
 
 export default function RenderUser(props) {
   const { id, name, age, city, comment, avatar } = props.item
   const [visible, setVisible] = useState(false)
+  const [count, setCount] = useState('')
+  const selectorData = generateData()
 
   const onImagePress = () => {
     setVisible(!visible)
@@ -37,9 +41,20 @@ export default function RenderUser(props) {
           style={styles.image}
         />
       </TouchableOpacity>
-      <IconButtons
-        onPress={onIconPress}
-      />
+      <View style={{flexDirection: 'row'}}>
+        <View style={{flex: 1, justifyContent: 'center', paddingLeft: 10}}>
+          <Selector
+            selectorData={selectorData}
+            current={count}
+            setCurrent={setCount}
+          />
+        </View>
+        <View style={{flex: 1}}>
+          <IconButtons
+            onPress={onIconPress}
+          />
+        </View>
+      </View>
       {visible?
         <View>
           <Text style={styles.title}>id: {id}</Text>
