@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Alert } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Alert, TextInput, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { fontSize, colors } from "../../theme";
 import ReadMore from '@fawazahmed/react-native-read-more';
 import IconButtons from "./IconButtons";
 import { generateData } from "./functions";
 import Selector from "../../components/Selector";
+import Button from "../../components/Button";
 
 const { width, height } = Dimensions.get('window')
 
@@ -12,6 +13,7 @@ export default function RenderUser(props) {
   const { id, name, age, city, comment, avatar } = props.item
   const [visible, setVisible] = useState(false)
   const [count, setCount] = useState('')
+  const [text, setText] = useState('')
   const selectorData = generateData()
 
   const onImagePress = () => {
@@ -19,8 +21,12 @@ export default function RenderUser(props) {
   }
 
   const onIconPress = ({iconName}) => {
+    showAlert({title: `${iconName}が押されました`})
+  }
+
+  const showAlert = ({title}) => {
     Alert.alert(
-      `${iconName}が押されました`,
+      title,
       '',
       [
         {text: '閉じる', onPress: () => console.log('on close')}
@@ -29,7 +35,18 @@ export default function RenderUser(props) {
     )
   }
 
+  const onChangeText = (text) => {
+    setText(text)
+  }
+
+  const onButtonPress = () => {
+    showAlert({title: text})
+  }
+
   return (
+    <TouchableWithoutFeedback
+      onPress={() => Keyboard.dismiss()}
+    >
     <View>
       <TouchableOpacity
         style={styles.buttonContainer}
@@ -55,6 +72,23 @@ export default function RenderUser(props) {
           />
         </View>
       </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          value={text}
+          onChangeText={onChangeText}
+          maxLength={8}
+          style={styles.textBox}
+        />
+        <View style={{paddingVertical: 10}} />
+        <Button
+          label='入力した文字を表示'
+          onPress={onButtonPress}
+          color={colors.bluePrimary}
+          disable={text.length <= 3}
+          labelColor={colors.white}
+          labelBold={true}
+        />
+      </View>
       {visible?
         <View>
           <Text style={styles.title}>id: {id}</Text>
@@ -76,6 +110,7 @@ export default function RenderUser(props) {
       }
       <View style={{width: '100%', backgroundColor: colors.gray, paddingVertical: 1}} />
     </View>
+    </TouchableWithoutFeedback>
   )
 }
 
@@ -97,5 +132,17 @@ const styles = StyleSheet.create({
     width: width * 0.8,
     height: width * 0.8,
     borderRadius: 20
+  },
+  inputContainer: {
+    paddingHorizontal: 10,
+    paddingVertical: 10
+  },
+  textBox: {
+    fontSize: fontSize.xLarge,
+    borderColor: colors.grayThird,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10
   }
 })
