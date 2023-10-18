@@ -6,11 +6,14 @@ import IconButtons from "./IconButtons";
 import { generateData } from "./functions";
 import Selector from "../../components/Selector";
 import Button from "../../components/Button";
+import { useNavigation } from "@react-navigation/native";
+import * as Linking from 'expo-linking';
 
 const { width, height } = Dimensions.get('window')
 
 export default function RenderUser(props) {
-  const { id, name, age, city, comment, avatar } = props.item
+  const { id, name, age, city, comment, avatar, link } = props.item
+  const navigation = useNavigation()
   const [visible, setVisible] = useState(false)
   const [count, setCount] = useState('')
   const [text, setText] = useState('')
@@ -41,6 +44,14 @@ export default function RenderUser(props) {
 
   const onButtonPress = () => {
     showAlert({title: text})
+  }
+
+  const onGoWebPress = () => {
+    navigation.navigate('Web', { link })
+  }
+
+  const onLinkPress = () => {
+    Linking.openURL(link)
   }
 
   return (
@@ -79,12 +90,30 @@ export default function RenderUser(props) {
           maxLength={8}
           style={styles.textBox}
         />
-        <View style={{paddingVertical: 10}} />
+        <View style={styles.space} />
         <Button
           label='入力した文字を表示'
           onPress={onButtonPress}
           color={colors.bluePrimary}
           disable={text.length <= 3}
+          labelColor={colors.white}
+          labelBold={true}
+        />
+        <View style={styles.space} />
+        <Button
+          label='アプリ内ブラウザで開く'
+          onPress={onGoWebPress}
+          color={colors.pink}
+          disable={false}
+          labelColor={colors.white}
+          labelBold={true}
+        />
+        <View style={styles.space} />
+        <Button
+          label='スマホのブラウザで開く'
+          onPress={onLinkPress}
+          color={colors.purple}
+          disable={false}
           labelColor={colors.white}
           labelBold={true}
         />
@@ -144,5 +173,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10
+  },
+  space: {
+    paddingVertical: 10
   }
 })

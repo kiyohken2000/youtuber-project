@@ -7,6 +7,7 @@ import Sneakers from '../../../scenes/sneakers/Sneakers'
 import Information from '../../../scenes/information/Information'
 import Map from '../../../scenes/map/Map'
 import Users from '../../../scenes/users/Users'
+import Web from '../../../scenes/web/Web'
 
 const Stack = createStackNavigator()
 
@@ -57,6 +58,15 @@ export const SearchStacks = () => {
         component={Users}
         options={({ navigation }) => ({
           title: 'Users',
+          headerShown: true,
+          headerBackTitleVisible: false,
+        })}
+      />
+      <Stack.Screen
+        name="Web"
+        component={Web}
+        options={({ navigation }) => ({
+          title: 'Web',
           headerShown: true,
           headerBackTitleVisible: false,
         })}
