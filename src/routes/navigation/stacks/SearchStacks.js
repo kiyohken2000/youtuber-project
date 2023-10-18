@@ -8,6 +8,7 @@ import Information from '../../../scenes/information/Information'
 import Map from '../../../scenes/map/Map'
 import Users from '../../../scenes/users/Users'
 import Web from '../../../scenes/web/Web'
+import Date from '../../../scenes/date/Date'
 
 const Stack = createStackNavigator()
 
@@ -67,6 +68,15 @@ export const SearchStacks = () => {
         component={Web}
         options={({ navigation }) => ({
           title: 'Web',
+          headerShown: true,
+          headerBackTitleVisible: false,
+        })}
+      />
+      <Stack.Screen
+        name="Date"
+        component={Date}
+        options={({ navigation }) => ({
+          title: 'Date',
           headerShown: true,
           headerBackTitleVisible: false,
         })}

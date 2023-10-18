@@ -20,6 +20,10 @@ export default function Search() {
     navigation.navigate('Users')
   }
 
+  const onDatePress = () => {
+    navigation.navigate('Date')
+  }
+
   return (
     <ScreenTemplate>
       <View style={styles.container}>
@@ -47,6 +51,15 @@ export default function Search() {
             label='ユーザー一覧へ'
             onPress={onUsersPress}
             color={colors.pink}
+            disable={false}
+            labelColor={colors.white}
+            labelBold={false}
+          />
+          <View style={{paddingVertical: 10}} />
+          <Button
+            label='日付画面へ'
+            onPress={onDatePress}
+            color={colors.grayPrimary}
             disable={false}
             labelColor={colors.white}
             labelBold={false}
