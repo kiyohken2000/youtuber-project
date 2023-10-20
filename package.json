@@ -49,6 +49,7 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.19.6",
     "react-native-webview": "13.2.2",
+    "react-native-youtube-iframe": "^2.3.0",
     "react-redux": "^7.1.1",
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6"

@@ -9,6 +9,7 @@ import Map from '../../../scenes/map/Map'
 import Users from '../../../scenes/users/Users'
 import Web from '../../../scenes/web/Web'
 import Date from '../../../scenes/date/Date'
+import Video from '../../../scenes/video/Video'
 
 const Stack = createStackNavigator()
 
@@ -77,6 +78,15 @@ export const SearchStacks = () => {
         component={Date}
         options={({ navigation }) => ({
           title: 'Date',
+          headerShown: true,
+          headerBackTitleVisible: false,
+        })}
+      />
+      <Stack.Screen
+        name="Video"
+        component={Video}
+        options={({ navigation }) => ({
+          title: 'Video',
           headerShown: true,
           headerBackTitleVisible: false,
         })}

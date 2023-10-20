@@ -12,7 +12,7 @@ import * as Linking from 'expo-linking';
 const { width, height } = Dimensions.get('window')
 
 export default function RenderUser(props) {
-  const { id, name, age, city, comment, avatar, link } = props.item
+  const { id, name, age, city, comment, avatar, link, video } = props.item
   const navigation = useNavigation()
   const [visible, setVisible] = useState(false)
   const [count, setCount] = useState('')
@@ -52,6 +52,10 @@ export default function RenderUser(props) {
 
   const onLinkPress = () => {
     Linking.openURL(link)
+  }
+
+  const onVideoPress = () => {
+    navigation.navigate('Video', {video})
   }
 
   return (
@@ -113,6 +117,15 @@ export default function RenderUser(props) {
           label='スマホのブラウザで開く'
           onPress={onLinkPress}
           color={colors.purple}
+          disable={false}
+          labelColor={colors.white}
+          labelBold={true}
+        />
+        <View style={styles.space} />
+        <Button
+          label='YouTubeを開く'
+          onPress={onVideoPress}
+          color={colors.grayPrimary}
           disable={false}
           labelColor={colors.white}
           labelBold={true}
