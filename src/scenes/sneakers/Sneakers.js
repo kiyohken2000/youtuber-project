@@ -42,6 +42,7 @@ export default function Sneakers() {
             key={sneaker.id}
             sneaker={sneaker}
             onPress={() => onItemPress({sneaker})}
+            index={i}
           />
         )
       })}

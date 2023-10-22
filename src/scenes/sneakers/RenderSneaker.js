@@ -1,14 +1,30 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { fontSize, colors } from "../../theme";
+import { MotiView } from 'moti';
 
 export default function RenderSneaker(props) {
-  const { sneaker, onPress } = props
+  const { sneaker, onPress, index } = props
   const { id, brand, colorway, gender, media, releaseDate, retailPrice, styledId, title, year } = sneaker
   const { thumbUrl } = media
 
   return (
-    <View>
+    <MotiView
+      from={{
+        opacity: 0,
+        translateX: 15,
+        translateY: 0
+      }}
+      animate={{
+        opacity: 1,
+        translateX: 0,
+        translateY: 0
+      }}
+      delay={index * 200}
+      transition={{
+        type: 'timing',
+      }}
+    >
       <TouchableOpacity
         style={styles.container}
         onPress={onPress}
@@ -29,7 +45,7 @@ export default function RenderSneaker(props) {
         </View>
       </TouchableOpacity>
       <View style={{width: '100%', backgroundColor: colors.gray, paddingVertical: 1}} />
-    </View>
+    </MotiView>
   )
 }
 
