@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { colors, fontSize } from "../../theme";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Button from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
+import Dialog from "react-native-dialog";
 
 export default function Search() {
   const navigation = useNavigation()
+  const [visible, setVisible] = useState(false);
+  const [input, setInput] = useState('')
 
   const onButtonPress = () => {
     navigation.navigate('Sneakers')
@@ -22,6 +25,25 @@ export default function Search() {
 
   const onDatePress = () => {
     navigation.navigate('Date')
+  }
+
+  const onInputBoxPress = () => {
+    setVisible(true);
+  }
+
+  const handleCancel = () => {
+    setVisible(false);
+    setInput('')
+  };
+
+  const onOkPress = () => {
+    console.log(`入力されたテキスト: ${input}`)
+    setVisible(false)
+    setInput('')
+  }
+
+  const handleTextChange = (inputText) => {
+    setInput(inputText)
   }
 
   return (
@@ -64,8 +86,35 @@ export default function Search() {
             labelColor={colors.white}
             labelBold={false}
           />
+          <View style={{paddingVertical: 10}} />
+          <Button
+            label='入力ボックスを表示'
+            onPress={onInputBoxPress}
+            color={colors.lightPurple}
+            disable={false}
+            labelColor={colors.white}
+            labelBold={false}
+          />
         </View>
       </View>
+      <Dialog.Container visible={visible}>
+        <Dialog.Title>入力</Dialog.Title>
+        <Dialog.Description>
+          入力してください
+        </Dialog.Description>
+        <Dialog.Input
+          placeholder="入力欄です"
+          onChangeText={handleTextChange}
+          value={input}
+          inputMode='email'
+          keyboardType='email-address'
+        />
+        <Dialog.Button label="キャンセル" onPress={handleCancel} />
+        {input.length >= 4?
+          <Dialog.Button label="決定" onPress={onOkPress} />
+          :null
+        }
+      </Dialog.Container>
     </ScreenTemplate>
   )
 }
