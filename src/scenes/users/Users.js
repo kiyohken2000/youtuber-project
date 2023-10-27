@@ -5,11 +5,13 @@ import { fontSize } from "../../theme";
 import { dataUrl, formatData } from "./functions";
 import axios from "axios";
 import RenderUser from "./RenderUser";
+import { Snackbar } from 'react-native-paper';
 
 export default function Users() {
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
   const [sheetData, setSheetData] = useState([])
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const fetchData = async() => {
@@ -28,6 +30,10 @@ export default function Users() {
     }
     fetchData()
   }, [])
+  
+  const onToggleSnackBar = () => setVisible(!visible);
+
+  const onDismissSnackBar = () => setVisible(false);
 
   return (
     <ScreenTemplate isLoading={isLoading} isError={isError}>
@@ -37,10 +43,18 @@ export default function Users() {
             <RenderUser
               key={item.id}
               item={item}
+              onToggleSnackBar={onToggleSnackBar}
             />
           )
         })}
       </ScrollView>
+      <Snackbar
+        visible={visible}
+        onDismiss={onDismissSnackBar}
+        duration={3000}
+      >
+        コピーしました
+      </Snackbar>
     </ScreenTemplate>
   )
 }

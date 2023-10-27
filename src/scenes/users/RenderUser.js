@@ -8,10 +8,12 @@ import Selector from "../../components/Selector";
 import Button from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
 import * as Linking from 'expo-linking';
+import * as Clipboard from 'expo-clipboard';
 
 const { width, height } = Dimensions.get('window')
 
 export default function RenderUser(props) {
+  const { onToggleSnackBar } = props
   const { id, name, age, city, comment, avatar, link, video } = props.item
   const navigation = useNavigation()
   const [visible, setVisible] = useState(false)
@@ -25,6 +27,11 @@ export default function RenderUser(props) {
 
   const onIconPress = ({iconName}) => {
     showAlert({title: `${iconName}が押されました`})
+  }
+
+  const onNamePress = async() => {
+    await Clipboard.setStringAsync(name);
+    onToggleSnackBar()
   }
 
   const showAlert = ({title}) => {
@@ -134,7 +141,9 @@ export default function RenderUser(props) {
       {visible?
         <View>
           <Text style={styles.title}>id: {id}</Text>
-          <Text style={styles.title}>name: {name}</Text>
+          <TouchableOpacity onPress={onNamePress}>
+            <Text style={styles.title}>name: {name}</Text>
+          </TouchableOpacity>
           <Text style={styles.title}>age: {age}</Text>
           <Text style={styles.title}>city: {city}</Text>
           <ReadMore
