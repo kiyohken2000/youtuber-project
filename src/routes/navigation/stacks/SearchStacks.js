@@ -10,6 +10,8 @@ import Users from '../../../scenes/users/Users'
 import Web from '../../../scenes/web/Web'
 import Date from '../../../scenes/date/Date'
 import Video from '../../../scenes/video/Video'
+import Articles from '../../../scenes/articles/Articles'
+import Content from '../../../scenes/content/Content'
 
 const Stack = createStackNavigator()
 
@@ -87,6 +89,24 @@ export const SearchStacks = () => {
         component={Video}
         options={({ navigation }) => ({
           title: 'Video',
+          headerShown: true,
+          headerBackTitleVisible: false,
+        })}
+      />
+      <Stack.Screen
+        name="Articles"
+        component={Articles}
+        options={({ navigation }) => ({
+          title: 'Articles',
+          headerShown: true,
+          headerBackTitleVisible: false,
+        })}
+      />
+      <Stack.Screen
+        name="Content"
+        component={Content}
+        options={({ navigation }) => ({
+          title: 'Content',
           headerShown: true,
           headerBackTitleVisible: false,
         })}
