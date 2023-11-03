@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { ScrollView, Text, StyleSheet, Dimensions } from "react-native";
 import { colors, fontSize } from "../../theme";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { useRoute } from "@react-navigation/native";
+import RenderHtml from 'react-native-render-html';
+
+const { width } = Dimensions.get('window')
 
 export default function Content() {
   const route = useRoute()
@@ -10,17 +13,21 @@ export default function Content() {
 
   return (
     <ScreenTemplate>
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Text style={styles.title}>{item.title}</Text>
-        <Text>{item.content}</Text>
-      </View>
+        <RenderHtml
+          contentWidth={width}
+          source={{html: item.content}}
+        />
+      </ScrollView>
     </ScreenTemplate>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    paddingHorizontal: 10
   },
   title: {
     fontSize: fontSize.xxxLarge
