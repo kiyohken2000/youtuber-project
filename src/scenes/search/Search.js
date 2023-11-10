@@ -5,11 +5,13 @@ import ScreenTemplate from "../../components/ScreenTemplate";
 import Button from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
 import Dialog from "react-native-dialog";
+import AwesomeModal from "./AwesomeModal";
 
 export default function Search() {
   const navigation = useNavigation()
   const [visible, setVisible] = useState(false);
   const [input, setInput] = useState('')
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   const onButtonPress = () => {
     navigation.navigate('Sneakers')
@@ -104,8 +106,21 @@ export default function Search() {
             labelColor={colors.white}
             labelBold={false}
           />
+          <View style={{paddingVertical: 10}} />
+          <Button
+            label='モーダルを開く'
+            onPress={() => setIsModalVisible(true)}
+            color={colors.redSecondary}
+            disable={false}
+            labelColor={colors.white}
+            labelBold={false}
+          />
         </View>
       </View>
+      <AwesomeModal
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
       <Dialog.Container visible={visible}>
         <Dialog.Title>入力</Dialog.Title>
         <Dialog.Description>
