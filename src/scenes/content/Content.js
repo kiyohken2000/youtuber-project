@@ -4,13 +4,14 @@ import { colors, fontSize } from "../../theme";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { useRoute } from "@react-navigation/native";
 import RenderHtml from 'react-native-render-html';
+import RenderCarousel from "./Carousel";
 
 const { width, height } = Dimensions.get('window')
 
 export default function Content() {
   const route = useRoute()
   const { item } = route.params
-  const {content, createdAt, id, publishedAt, revisedAt, thumbnail, title, updatedAt, video} = item
+  const {content, createdAt, id, publishedAt, revisedAt, thumbnail, title, updatedAt, video, photos} = item
 
   return (
     <ScreenTemplate>
@@ -22,6 +23,9 @@ export default function Content() {
         >
           <Text style={styles.title}>{title}</Text>
         </ImageBackground>
+        <RenderCarousel
+          photos={photos}
+        />
         <View style={styles.body}>
           <RenderHtml
             contentWidth={width}
