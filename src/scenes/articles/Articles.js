@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { cmsKey, articlesUrl } from "../../config";
 import RenderItem from "./RenderItem";
+import { sleep } from "../../utils/utilFunctions";
 
 export default function Articles() {
   const navigation = useNavigation()
@@ -20,6 +21,7 @@ export default function Articles() {
         const {data} = await axios.get(articlesUrl, { headers: {'X-MICROCMS-API-KEY': cmsKey}})
         const {contents} = data
         setArticles(contents)
+        await sleep(5000)
       } catch(e) {
         console.log('fetch data error', e)
         setIsError(true)
@@ -35,7 +37,7 @@ export default function Articles() {
   }
 
   return (
-    <ScreenTemplate isLoading={isLoading} isError={isError}>
+    <ScreenTemplate isLoading={false} isError={isError} isSkeletonLoading={isLoading}>
       <ScrollView style={styles.container}>
         {articles.map((item, i) => {
           return (

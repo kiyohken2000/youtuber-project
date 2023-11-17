@@ -4,9 +4,14 @@ import { colors } from "../theme";
 import LoadingScreen from "./LoadingScreen";
 import ErrorScreen from "./ErrorScreen";
 import EmptyScreen from "./EmptyScreen";
+import SkeletonContainer from "./SkeletonLoading/SkeletonContainer";
 
 export default function ScreenTemplate(props) {
-  const { isLoading, isError, color, isEmpty } = props
+  const { isLoading, isError, color, isEmpty, isSkeletonLoading } = props
+
+  if(isSkeletonLoading) {
+    return <SkeletonContainer/>
+  }
 
   if(isLoading) {
     return <LoadingScreen />
