@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { ScrollView, Text, StyleSheet, Dimensions, ImageBackground, View } from "react-native";
+import { ScrollView, Text, StyleSheet, Dimensions, ImageBackground, View, Alert } from "react-native";
 import { colors, fontSize } from "../../theme";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { useRoute } from "@react-navigation/native";
 import RenderHtml from 'react-native-render-html';
 import RenderCarousel from "./Carousel";
+import DoubleTapButton from "../../components/DoubleTapButton";
 
 const { width, height } = Dimensions.get('window')
 
@@ -26,6 +27,18 @@ export default function Content() {
         <RenderCarousel
           photos={photos}
         />
+        <View style={styles.buttonContainer}>
+          <DoubleTapButton
+            label='ダブルタップボタン'
+            onSinglePress={() => Alert.alert('Single Tap')}
+            onDoublePress={() => Alert.alert('Double Tap')}
+            onLongPress={() => Alert.alert('Long Press')}
+            color={colors.bluePrimary}
+            disable={false}
+            labelColor={colors.white}
+            labelBold={false}
+          />
+        </View>
         <View style={styles.body}>
           <RenderHtml
             contentWidth={width}
@@ -54,5 +67,8 @@ const styles = StyleSheet.create({
     height: height * 0.3,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  buttonContainer: {
+    paddingHorizontal: 10
   }
 })
