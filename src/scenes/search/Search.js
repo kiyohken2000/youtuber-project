@@ -115,6 +115,15 @@ export default function Search() {
             labelColor={colors.white}
             labelBold={false}
           />
+          <View style={{paddingVertical: 10}} />
+          <Button
+            label='画像生成画面へ'
+            onPress={() => navigation.navigate('ImageGenerate')}
+            color={colors.bluePrimary}
+            disable={false}
+            labelColor={colors.white}
+            labelBold={false}
+          />
         </View>
       </View>
       <AwesomeModal

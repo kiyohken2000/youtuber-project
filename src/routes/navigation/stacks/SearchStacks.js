@@ -12,6 +12,7 @@ import Date from '../../../scenes/date/Date'
 import Video from '../../../scenes/video/Video'
 import Articles from '../../../scenes/articles/Articles'
 import Content from '../../../scenes/content/Content'
+import ImageGenerate from '../../../scenes/imageGenerate/ImageGenerate'
 
 const Stack = createStackNavigator()
 
@@ -107,6 +108,15 @@ export const SearchStacks = () => {
         component={Content}
         options={({ navigation }) => ({
           title: 'Content',
+          headerShown: true,
+          headerBackTitleVisible: false,
+        })}
+      />
+      <Stack.Screen
+        name="ImageGenerate"
+        component={ImageGenerate}
+        options={({ navigation }) => ({
+          title: 'ImageGenerate',
           headerShown: true,
           headerBackTitleVisible: false,
         })}
