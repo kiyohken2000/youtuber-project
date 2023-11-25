@@ -8,7 +8,8 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "lint": "node_modules/.bin/eslint src/ --fix src/ --fix",
-    "test": "node_modules/.bin/jest --passWithNoTests"
+    "test": "node_modules/.bin/jest --passWithNoTests",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@fawazahmed/react-native-read-more": "^3.0.3",
@@ -33,6 +34,7 @@
     "moment": "^2.24.0",
     "moti": "^0.27.0",
     "openai": "^4.20.0",
+    "patch-package": "^8.0.0",
     "prop-types": "^15.7.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
