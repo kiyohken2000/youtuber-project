@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native'
 import { fontSize, colors } from "../../theme";
 import Button from '../../components/Button';
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -8,13 +8,15 @@ import AutoHeightImage from 'react-native-auto-height-image';
 import "react-native-url-polyfill/auto";
 import OpenAI from 'openai';
 import { openaiKey } from '../../openaiKeys';
+import RenderImages from './RenderImages';
 
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 
 export default function ImageGenerate() {
   const [text, setText] = useState('')
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState('');
+  const [images, setImages] = useState([])
   const openai = new OpenAI({
     apiKey: openaiKey
   });
@@ -26,9 +28,9 @@ export default function ImageGenerate() {
         prompt: text,
         model: 'dall-e-2',
         size: '512x512',
-        n: 1
+        n: 5
       })
-      setResult(res.data[0].url)
+      setImages(res.data)
     } catch(e) {
       console.log('generate image error', e)
     } finally {
@@ -39,15 +41,11 @@ export default function ImageGenerate() {
   return (
     <ScreenTemplate>
       <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss()}>
-        <View style={styles.container}>
-          <View style={{flex: 3}}>
+        <ScrollView style={styles.container}>
+          <View style={{height: width * 0.9}}>
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            {result?
-              <AutoHeightImage
-                width={width * 0.9}
-                source={{ uri: result }}
-                defaultSource={require('../../../assets/images/logo-lg.png')}
-              />
+            {images.length?
+              <RenderImages images={images} />
               :
               <Text style={styles.text}>プロンプトを入力してボタンを押してください</Text>
             }
@@ -76,7 +74,7 @@ export default function ImageGenerate() {
             textStyle={{ color: colors.white }}
             overlayColor="rgba(0,0,0,0.5)"
           />
-        </View>
+        </ScrollView>
       </TouchableWithoutFeedback>
     </ScreenTemplate>
   )
@@ -94,10 +92,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.bluePrimary,
     flex: 1,
-    borderRadius: 5
+    borderRadius: 5,
+    height: height * 0.2
   },
   buttonContainer: {
-    flex: 0.5,
     paddingHorizontal: 5,
     justifyContent: 'center'
   },
