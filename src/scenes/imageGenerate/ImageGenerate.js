@@ -9,6 +9,8 @@ import "react-native-url-polyfill/auto";
 import OpenAI from 'openai';
 import { openaiKey } from '../../openaiKeys';
 import RenderImages from './RenderImages';
+import { saveImage } from '../../utils/downloadFunctions';
+import moment from 'moment/moment';
 
 const { width, height } = Dimensions.get('window')
 
@@ -37,6 +39,13 @@ export default function ImageGenerate() {
       setLoading(false)
     }
   };
+
+  const onImagePress = async({url}) => {
+    setLoading(true)
+    const fileName = `${moment().unix()}.png`
+    await saveImage({url, fileName})
+    setLoading(false)
+  }
   
   return (
     <ScreenTemplate>
@@ -45,7 +54,10 @@ export default function ImageGenerate() {
           <View style={{height: width * 0.9}}>
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             {images.length?
-              <RenderImages images={images} />
+              <RenderImages
+                images={images}
+                onImagePress={onImagePress}
+              />
               :
               <Text style={styles.text}>プロンプトを入力してボタンを押してください</Text>
             }
