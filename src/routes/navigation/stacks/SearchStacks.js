@@ -14,6 +14,7 @@ import Articles from '../../../scenes/articles/Articles'
 import Content from '../../../scenes/content/Content'
 import ImageGenerate from '../../../scenes/imageGenerate/ImageGenerate'
 import Talk from '../../../scenes/talk/Talk'
+import Chat from '../../../scenes/chat/Chat'
 
 const Stack = createStackNavigator()
 
@@ -127,6 +128,15 @@ export const SearchStacks = () => {
         component={Talk}
         options={({ navigation }) => ({
           title: 'Talk',
+          headerShown: true,
+          headerBackTitleVisible: false,
+        })}
+      />
+      <Stack.Screen
+        name="Chat"
+        component={Chat}
+        options={({ navigation }) => ({
+          title: 'Chat',
           headerShown: true,
           headerBackTitleVisible: false,
         })}

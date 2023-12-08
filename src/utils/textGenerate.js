@@ -1,5 +1,5 @@
 import axios from "axios";
-import { palmKey } from "../config";
+import { palmKey } from "../openaiKeys";
 
 const apiUrl = 'https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage';
 const errorMessage = 'すみません。よくわかりませんでした'

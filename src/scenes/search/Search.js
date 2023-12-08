@@ -132,6 +132,15 @@ export default function Search() {
             labelColor={colors.white}
             labelBold={false}
           />
+          <View style={{paddingVertical: 10}} />
+          <Button
+            label='チャット画面へ'
+            onPress={() => navigation.navigate('Chat')}
+            color={colors.darkPurple}
+            disable={false}
+            labelColor={colors.white}
+            labelBold={false}
+          />
         </View>
       </ScrollView>
       <AwesomeModal
