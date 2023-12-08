@@ -13,6 +13,7 @@ import Video from '../../../scenes/video/Video'
 import Articles from '../../../scenes/articles/Articles'
 import Content from '../../../scenes/content/Content'
 import ImageGenerate from '../../../scenes/imageGenerate/ImageGenerate'
+import Talk from '../../../scenes/talk/Talk'
 
 const Stack = createStackNavigator()
 
@@ -117,6 +118,15 @@ export const SearchStacks = () => {
         component={ImageGenerate}
         options={({ navigation }) => ({
           title: 'ImageGenerate',
+          headerShown: true,
+          headerBackTitleVisible: false,
+        })}
+      />
+      <Stack.Screen
+        name="Talk"
+        component={Talk}
+        options={({ navigation }) => ({
+          title: 'Talk',
           headerShown: true,
           headerBackTitleVisible: false,
         })}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { colors, fontSize } from "../../theme";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Button from "../../components/Button";
@@ -50,8 +50,7 @@ export default function Search() {
 
   return (
     <ScreenTemplate>
-      <View style={styles.container}>
-        <Text style={styles.title}>これはサーチ画面です</Text>
+      <ScrollView style={styles.container}>
         <View style={styles.buttonContainer}>
           <Button
             label='スニーカー一覧へ'
@@ -124,8 +123,17 @@ export default function Search() {
             labelColor={colors.white}
             labelBold={false}
           />
+          <View style={{paddingVertical: 10}} />
+          <Button
+            label='トーク画面へ'
+            onPress={() => navigation.navigate('Talk')}
+            color={colors.blueSecondary}
+            disable={false}
+            labelColor={colors.white}
+            labelBold={false}
+          />
         </View>
-      </View>
+      </ScrollView>
       <AwesomeModal
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
@@ -155,8 +163,6 @@ export default function Search() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   title: {
     fontSize: fontSize.xxxLarge
