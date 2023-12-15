@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { GiftedChat } from 'react-native-gifted-chat'
-import { generateMessage } from '../../utils/textGenerate';
+import { generateMessage, generateChatMessage } from '../../utils/textGenerate';
 import moment from 'moment';
 
 export default function Chat() {
@@ -15,7 +15,7 @@ export default function Chat() {
         const { text, user } = messages[0]
         if(user._id === 1) {
           setIsLoading(true)
-          const reply = await generateMessage({inputText: text})
+          const reply = await generateChatMessage({messages})
           const botMessage = {
             _id: `${moment().unix()}`,
             createdAt: new Date(),
