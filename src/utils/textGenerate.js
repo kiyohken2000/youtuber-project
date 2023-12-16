@@ -1,5 +1,6 @@
 import axios from "axios";
 import { palmKey } from "../openaiKeys";
+import * as FileSystem from 'expo-file-system';
 
 const apiUrl = 'https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage';
 const errorMessage = 'すみません。よくわかりませんでした'
@@ -31,22 +32,58 @@ const generateMessage = async({inputText}) => {
 
 const generateChatMessage = async({messages}) => {
   try {
-    const formatedChatlog = formatChatlog({messages})
-    const {data} = await axios.post(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + palmKey,
-      {
-        contents: formatedChatlog,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const { image, text } = messages[0]
+    if(image) {
+      const base64strings = await FileSystem.readAsStringAsync(image, {
+        encoding: FileSystem.EncodingType.Base64
+      })
+      const requestData = {
+        contents: [
+          {
+            parts: [
+              { text: text },
+              {
+                inline_data: {
+                  mime_type: 'image/png',
+                  data: base64strings,
+                },
+              },
+            ],
+          },
+        ],
+      };
+      const {data} = await axios.post(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${palmKey}`,
+        requestData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if(data && data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text) {
+        return data.candidates[0].content.parts[0].text
+      } else {
+        return errorMessage
       }
-    );
-    if(data && data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text) {
-      return data.candidates[0].content.parts[0].text
     } else {
-      return errorMessage
+      const formatedChatlog = formatChatlog({messages})
+      const {data} = await axios.post(
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + palmKey,
+        {
+          contents: formatedChatlog,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if(data && data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text) {
+        return data.candidates[0].content.parts[0].text
+      } else {
+        return errorMessage
+      }
     }
   } catch (error) {
     console.log('generate chat message error:', error);
