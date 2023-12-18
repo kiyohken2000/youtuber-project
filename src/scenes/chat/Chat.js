@@ -8,11 +8,24 @@ import SendButton from './SendButton';
 import ImageButton from './ImageButton';
 import FooterImage from './FooterImage';
 import * as ImagePicker from 'expo-image-picker';
+import { useNavigation } from '@react-navigation/native';
+import HeaderRightButton from './HeaderRightButton';
 
 export default function Chat() {
+  const navigation = useNavigation()
   const [messages, setMessages] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [imagePath, setImagePath] = useState('')
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <HeaderRightButton
+          onPress={() => setMessages([])}
+        />
+      ),
+    });
+  }, [navigation]);
 
   useEffect(() => {
     const onRecieveNewMessage = async() => {
@@ -98,6 +111,7 @@ export default function Chat() {
             renderSend={renderSend}
             alwaysShowSend={true}
             renderFooter={imagePath?renderChatFooter:null}
+            placeholder={messages.length?'メッセージを入力':'お気軽にご質問ください'}
           />
         </View>
       </TouchableWithoutFeedback>

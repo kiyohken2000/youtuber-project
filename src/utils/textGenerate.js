@@ -1,6 +1,7 @@
 import axios from "axios";
 import { palmKey } from "../openaiKeys";
 import * as FileSystem from 'expo-file-system';
+import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 
 const apiUrl = 'https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage';
 const errorMessage = 'すみません。よくわかりませんでした'
@@ -34,7 +35,12 @@ const generateChatMessage = async({messages}) => {
   try {
     const { image, text } = messages[0]
     if(image) {
-      const base64strings = await FileSystem.readAsStringAsync(image, {
+      const manipResult = await manipulateAsync(
+        image,
+        [{ resize: {width: 512} }],
+        { compress: 1, format: SaveFormat.PNG }
+      );
+      const base64strings = await FileSystem.readAsStringAsync(manipResult.uri, {
         encoding: FileSystem.EncodingType.Base64
       })
       const requestData = {
