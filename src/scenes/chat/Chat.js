@@ -98,23 +98,22 @@ export default function Chat() {
 
   return (
     <ScreenTemplate>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={styles.container}>
-          <GiftedChat
-            messages={messages}
-            onSend={messages => onSend(messages)}
-            user={{
-              _id: 1,
-            }}
-            renderAvatar={null}
-            isTyping={isLoading}
-            renderSend={renderSend}
-            alwaysShowSend={true}
-            renderFooter={imagePath?renderChatFooter:null}
-            placeholder={messages.length?'メッセージを入力':'お気軽にご質問ください'}
-          />
-        </View>
-      </TouchableWithoutFeedback>
+      <View style={styles.container}>
+        <GiftedChat
+          messages={messages}
+          onSend={messages => onSend(messages)}
+          user={{
+            _id: 1,
+          }}
+          renderAvatar={null}
+          isTyping={isLoading}
+          renderSend={renderSend}
+          alwaysShowSend={true}
+          renderFooter={imagePath?renderChatFooter:null}
+          placeholder={messages.length?'メッセージを入力':'お気軽にご質問ください'}
+          keyboardShouldPersistTaps='never'
+        />
+      </View>
     </ScreenTemplate>
   )
 }
