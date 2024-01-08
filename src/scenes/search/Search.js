@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo, useRef } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { colors, fontSize } from "../../theme";
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -6,12 +6,20 @@ import Button from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
 import Dialog from "react-native-dialog";
 import AwesomeModal from "./AwesomeModal";
+import BottomSheet from '@gorhom/bottom-sheet';
 
 export default function Search() {
   const navigation = useNavigation()
   const [visible, setVisible] = useState(false);
   const [input, setInput] = useState('')
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [sheetPosition, setSheetPosition] = useState(0)
+  const bottomSheetRef = useRef(null);
+  const snapPoints = useMemo(() => ['1%', '25%', '50%', '75%'], []);
+
+  const handleSheetChanges = useCallback((index) => {
+    setSheetPosition(index)
+  }, []);
 
   const onButtonPress = () => {
     navigation.navigate('Sneakers')
@@ -141,12 +149,31 @@ export default function Search() {
             labelColor={colors.white}
             labelBold={false}
           />
+          <View style={{paddingVertical: 10}} />
+          <Button
+            label='ボトムシート開く'
+            onPress={() => setSheetPosition(2)}
+            color={colors.yellowPrimary}
+            disable={false}
+            labelColor={colors.black}
+            labelBold={false}
+          />
         </View>
       </ScrollView>
       <AwesomeModal
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
       />
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={sheetPosition}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+      >
+        <View style={styles.contentContainer}>
+          <Text>Awesome 🎉</Text>
+        </View>
+      </BottomSheet>
       <Dialog.Container visible={visible}>
         <Dialog.Title>入力</Dialog.Title>
         <Dialog.Description>
