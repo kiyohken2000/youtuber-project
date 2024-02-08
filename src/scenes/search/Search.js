@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import Dialog from "react-native-dialog";
 import AwesomeModal from "./AwesomeModal";
 import BottomSheet from '@gorhom/bottom-sheet';
+import BottomSheetContent from "./BottomSheetContent";
 
 export default function Search() {
   const navigation = useNavigation()
@@ -170,9 +171,7 @@ export default function Search() {
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
       >
-        <View style={styles.contentContainer}>
-          <Text>Awesome 🎉</Text>
-        </View>
+        <BottomSheetContent/>
       </BottomSheet>
       <Dialog.Container visible={visible}>
         <Dialog.Title>入力</Dialog.Title>

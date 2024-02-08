@@ -45,6 +45,7 @@
     "react-dom": "18.2.0",
     "react-native": "0.73.4",
     "react-native-auto-height-image": "^3.2.4",
+    "react-native-confetti": "^0.1.0",
     "react-native-dialog": "^9.3.0",
     "react-native-gesture-handler": "~2.14.0",
     "react-native-gifted-chat": "^2.4.0",
