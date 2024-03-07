@@ -8,6 +8,8 @@ import Dialog from "react-native-dialog";
 import AwesomeModal from "./AwesomeModal";
 import BottomSheet from '@gorhom/bottom-sheet';
 import BottomSheetContent from "./BottomSheetContent";
+import * as Linking from 'expo-linking';
+import axios from "axios";
 
 export default function Search() {
   const navigation = useNavigation()
@@ -55,6 +57,16 @@ export default function Search() {
 
   const handleTextChange = (inputText) => {
     setInput(inputText)
+  }
+
+  const onHidenPress = async() => {
+    try {
+      const response = await axios.post('https://www.yahoo.co.jp','')
+    } catch(e) {
+      console.log(e.message)
+      const link = `https://stackoverflow.com/search?q=[js]+${e.message}`
+      Linking.openURL(link)
+    }
   }
 
   return (
@@ -157,6 +169,15 @@ export default function Search() {
             color={colors.yellowPrimary}
             disable={false}
             labelColor={colors.black}
+            labelBold={false}
+          />
+          <View style={{paddingVertical: 10}} />
+          <Button
+            label='秘伝の技'
+            onPress={onHidenPress}
+            color={colors.bluePrimary}
+            disable={false}
+            labelColor={colors.white}
             labelBold={false}
           />
         </View>
